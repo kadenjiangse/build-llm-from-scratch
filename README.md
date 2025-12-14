@@ -56,6 +56,19 @@ byte pair encoding,
 
 ### 2.2如何将文本转换为token
 
+本节列举了一些利用自定义分词器对文档进行分词的操作，主要通过空格和标点符号来将文本转换为token
+
+### 2.3如何把tokens转换为IDs
+
+将token2id, id2token抽象为一个类
+
+### 2.4如何处理数据集之外的token
+
+添加两种特殊的token，"<|endoftext|>" 和"<|unk|>"
+
+### 2.5字节对编码btye pair encoding
+
+
 
 
 
