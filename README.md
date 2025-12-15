@@ -68,7 +68,8 @@ byte pair encoding,
 
 ### 2.5字节对编码btye pair encoding
 
+介绍了openai开源的词汇库 tiktoken，如何构建的词汇表，如何处理词汇表之外的token（token2id，id2token）
 
-
+### 2.6滑动窗口采样数据
 
 
