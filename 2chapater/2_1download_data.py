@@ -118,3 +118,50 @@ tokenizer = SimpleTokenizerV2(vocab)
 print(tokenizer.encode(text))
 print(tokenizer.decode(tokenizer.encode(text)))
 
+
+# 使用BPE
+import tiktoken
+from importlib_metadata import version
+print("tiktoken version: ", version("tiktoken"))
+
+tokenizer = tiktoken.get_encoding('gpt2')
+text = ("Hello, do you like tea? <|endoftext|> In the sunlit terraces""of someunknownPlace.") 
+integers = tokenizer.encode(text, allowed_special={"<|endoftext|>"})
+print(integers)
+print(tokenizer.decode(integers))
+
+text = ("Akwirw ier")
+integers = tokenizer.encode(text, allowed_special={"<|endoftext|>"})
+print(integers)
+print(tokenizer.decode(integers))
+
+# 使用BPE对document进行处理，使用滑动窗口构建训练数据集
+with open(file_path, "r", encoding="utf-8") as f:
+  raw_text = f.read()
+
+enc_text = tokenizer.encode(raw_text)
+print(len(enc_text))
+
+enc_sample = enc_text[50:]
+
+context_size = 4
+x = enc_sample[:context_size]
+y = enc_sample[1: context_size + 1]
+print(f"x: {x}")
+print(f"y:      {y}")
+
+# 可视化训练样本对，tokenid
+for i in range(1, context_size + 1):
+  context = enc_sample[:i]
+  desired = enc_sample[i]
+  print(context, "---->", desired)
+
+# 可视化训练样本对，token
+for i in range(1, context_size + 1):
+  context = enc_sample[:i]
+  desired = enc_sample[i]
+  print(tokenizer.decode(context), "---->", tokenizer.decode([desired]))
+
+import torch
+print(torch.cuda.is_available());
+print(torch.version.cuda)
